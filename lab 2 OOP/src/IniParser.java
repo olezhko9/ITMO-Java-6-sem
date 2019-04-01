@@ -1,37 +1,22 @@
 import java.util.HashMap;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.lang.NullPointerException;
+import java.lang.NumberFormatException;
 
 public class IniParser {
 
-    String filename;
-    private HashMap<String, HashMap<String, String>> configuration = new HashMap<>();
-
-    public IniParser(){}
+    private String filename;
+    private ConfigMap configuration = new ConfigMap();
 
     public IniParser(String filename){
         this.filename = filename;
     }
 
-    private void addSection(String s_name){
-        HashMap<String, String> section_map = new HashMap<>();
-        configuration.put(s_name, section_map);
-    }
-
-    private void addParameter(String s_name, String p_name, String p_value){
-        configuration.get(s_name).put(p_name, p_value);
-    }
-
-    public void parse(){
+    public ConfigMap parse(){
 
         try {
             FileReader fr = new FileReader(new File(this.filename));
             BufferedReader reader = new BufferedReader(fr);
-
 
             String section_name = "DEFAULT_SECTION";
             String line = reader.readLine();
@@ -51,31 +36,25 @@ public class IniParser {
                 if (open_bracket_pos != -1) {
                     int close_bracket_pos = line.indexOf(']');
                     section_name = line.substring(open_bracket_pos + 1, close_bracket_pos);
-                    this.addSection(section_name);
+                    this.configuration.addSection(section_name);
                 } else {
                     int equal_pos = line.indexOf('=');
                     if (equal_pos != -1) {
                         String parameter_name = line.substring(0, equal_pos - 1).trim();
                         String parameter_value = line.substring(equal_pos + 1).trim();
-                        this.addParameter(section_name, parameter_name, parameter_value);
+                        this.configuration.addParameter(section_name, parameter_name, parameter_value);
                     }
                 }
 //                System.out.println(line);
                 line = reader.readLine();
             }
         } catch (FileNotFoundException e) {
+            System.out.println("File " + this.filename + " not found");
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("Something wrong with IO");
             e.printStackTrace();
         }
-    }
-
-    public String getValue(String s_name, String p_name){
-//        try {
-//            return configuration.get(s_name).get(p_name);
-//        } catch (NullPointerException e) {
-//            return null;
-//        }
-        return configuration.get(s_name).get(p_name);
+        return this.configuration;
     }
 }

@@ -1,6 +1,6 @@
 public class Fraction implements Comparable<Fraction>{
-    int numerator;
-    int denominator;
+    private int numerator;
+    private int denominator;
 
     public Fraction() {
         this.numerator = 0;
