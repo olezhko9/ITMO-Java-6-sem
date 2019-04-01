@@ -12,23 +12,29 @@ public class ConfigMap {
         configMap.get(s_name).put(p_name, p_value);
     }
 
-    public int getIntegerValue(String s_name, String p_name){
+    public String getValue(String s_name, String p_name) throws IniConfigException{
         try {
-            return Integer.parseInt(configMap.get(s_name).get(p_name));
-        } catch (NumberFormatException e) {
-            return 0;
+            return configMap.get(s_name).get(p_name);
+        } catch (NullPointerException e) {
+            throw new IniConfigException("There is no parameter: " + s_name + "." + p_name, e);
         }
     }
 
-    public double getDoubleValue(String s_name, String p_name){
+    public int getIntegerValue(String s_name, String p_name) throws IniConfigException {
         try {
-            return Double.parseDouble(configMap.get(s_name).get(p_name));
+            return Integer.parseInt(this.getValue(s_name, p_name));
         } catch (NumberFormatException e) {
-            return 0;
+            throw new IniConfigException("Wrong parameter type: int", e);
         }
     }
 
-    public String getValue(String s_name, String p_name){
-        return configMap.get(s_name).get(p_name);
+    public double getDoubleValue(String s_name, String p_name) throws IniConfigException{
+        try {
+            return Double.parseDouble(this.getValue(s_name, p_name));
+        }  catch (NumberFormatException e) {
+            throw new IniConfigException("Wrong parameter type: double", e);
+        }
     }
+
+
 }
