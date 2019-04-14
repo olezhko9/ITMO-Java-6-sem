@@ -1,10 +1,17 @@
 package Account;
 
-public abstract class AccountAbs implements Account{
-    double balance;
+import Client.Client;
 
-    public Double getBalance() {
+public abstract class AccountAbs implements Account{
+    private double balance;
+    private Client accountOwner;
+
+    public double getBalance() {
         return this.balance;
+    }
+
+    public Client getAccountOwner() {
+        return this.accountOwner;
     }
 
     public void deposit(double value) {
