@@ -1,3 +1,4 @@
+import Account.*;
 import Client.Client;
 
 public class Main {
@@ -11,5 +12,12 @@ public class Main {
                 .build();
 
         System.out.println(bankClient.getFirstName() + bankClient.getSecondName());
+
+        AccountFactory accountFactory = new AccountFactory();
+        AccountAbs acc = accountFactory.newSimpleAccount(bankClient, 10000.0);
+        acc.deposit(500.0);
+        acc.withdrawal(5000.0);
+        System.out.println(acc.getBalance());
+        System.out.println(acc.getAccountOwner().getFirstName());
     }
 }
