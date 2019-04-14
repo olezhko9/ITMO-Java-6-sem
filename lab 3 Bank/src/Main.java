@@ -1,6 +1,8 @@
 import Account.*;
 import Client.Client;
 
+import java.util.Date;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -16,10 +18,15 @@ public class Main {
         final double commission = 30.0;
         final double percent = 2.1;
         AccountFactory accountFactory = new AccountFactory(commission, percent);
-        AccountAbs acc = accountFactory.newCreditAccount(bankClient, 10000.0, 1000.0);
-        acc.deposit(500.0);
-        acc.withdrawal(11000.0);
-        System.out.println(acc.getBalance());
-        System.out.println(acc.getAccountOwner().getFirstName());
+        AccountAbs creditAccount = accountFactory.newCreditAccount(bankClient, 10000.0, 1000.0);
+        creditAccount.deposit(500.0);
+        creditAccount.withdrawal(11000.0);
+        System.out.println(creditAccount.getBalance());
+
+        AccountAbs depositAccount = accountFactory.newDepositAccount(bankClient, 2000.0, new Date());
+        creditAccount.transfer(depositAccount, 300.0);
+
+        System.out.println(creditAccount.getBalance());
+        System.out.println(depositAccount.getBalance());
     }
 }

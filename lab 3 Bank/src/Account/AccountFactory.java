@@ -17,7 +17,7 @@ public class AccountFactory {
         return new SimpleAccount(client, balance);
     }
 
-    public AccountAbs newDepostAccount(Client client, double balance, Date depositDate) {
+    public AccountAbs newDepositAccount(Client client, double balance, Date depositDate) {
         return new DepositAccount(client, balance, depositDate, this.depositPercent);
     }
 

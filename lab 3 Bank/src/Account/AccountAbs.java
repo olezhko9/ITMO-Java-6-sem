@@ -26,8 +26,12 @@ public abstract class AccountAbs implements Account{
     }
 
     public void transfer(Account account, double value) {
-        withdrawal(value);
-        account.deposit(value);
+        if (account.getAccountOwner() == this.accountOwner) {
+            withdrawal(value);
+            account.deposit(value);
+        } else {
+            System.out.println("Transfer to this account is not possible.");
+        }
     }
 
     public abstract void withdrawal(double value);
