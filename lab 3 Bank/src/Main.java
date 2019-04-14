@@ -13,10 +13,12 @@ public class Main {
 
         System.out.println(bankClient.getFirstName() + bankClient.getSecondName());
 
-        AccountFactory accountFactory = new AccountFactory();
-        AccountAbs acc = accountFactory.newSimpleAccount(bankClient, 10000.0);
+        final double commission = 30.0;
+        final double percent = 2.1;
+        AccountFactory accountFactory = new AccountFactory(commission, percent);
+        AccountAbs acc = accountFactory.newCreditAccount(bankClient, 10000.0, 1000.0);
         acc.deposit(500.0);
-        acc.withdrawal(5000.0);
+        acc.withdrawal(11000.0);
         System.out.println(acc.getBalance());
         System.out.println(acc.getAccountOwner().getFirstName());
     }

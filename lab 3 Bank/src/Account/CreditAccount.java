@@ -7,7 +7,7 @@ public class CreditAccount extends AccountAbs {
     private double limit;
     private double commission;
 
-    public CreditAccount(Client client, double balance, double commission, double limit) {
+    public CreditAccount(Client client, double balance, double limit, double commission) {
         super(client, balance);
         this.limit = limit * -1;
         this.commission = commission;
