@@ -14,11 +14,12 @@ public class Main {
                 .build();
 
         System.out.println(bankClient.getFirstName() + bankClient.getSecondName());
+        System.out.println(bankClient.getAddress());
 
         final double commission = 30.0;
         final double percent = 2.1;
         AccountFactory accountFactory = new AccountFactory(commission, percent);
-        AccountAbs creditAccount = accountFactory.newCreditAccount(bankClient, 10000.0, 1000.0);
+        AccountDecorator creditAccount = new VerifiedAccountDecorator(accountFactory.newCreditAccount(bankClient, 10000.0, 1000.0), 1000.0);
         creditAccount.deposit(500.0);
         creditAccount.withdrawal(11000.0);
         System.out.println(creditAccount.getBalance());

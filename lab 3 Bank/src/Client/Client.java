@@ -30,7 +30,11 @@ public class Client {
         this.address = address;
     }
 
+    public String getAddress() { return address; }
+
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
     }
+
+    public String getPassportNumber() { return passportNumber; }
 }
