@@ -1,32 +1,30 @@
+package FractionPolynom;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class FractionList {
 
-    // Consider using the most generic type, e.g. List<Fraction>
     private List<Fraction> fractions = new ArrayList<>();
-    private Fraction max = new Fraction(Integer.MIN_VALUE, 1);
-    private Fraction min = new Fraction(Integer.MAX_VALUE, 1);
+    private Fraction max = null;
+    private Fraction min = null;
 
     public Fraction getMax() {
-        return max;
+        return this.max;
     }
 
     public Fraction getMin() {
-        return min;
+        return this.min;
     }
 
-    public ArrayList<Fraction> getFractions() {
+    public List<Fraction> getFractions() {
         return fractions;
     }
 
-
-    public void fromFile(String filename) {
-        File file = new File(filename);
+    public void insertFromFile(File file) {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String[] fractionsString = scanner.nextLine().split(" ");
@@ -40,11 +38,16 @@ public class FractionList {
     }
 
     public FractionList insert(Fraction fraction) {
-        if (fraction.compareTo(max) > 0) {
-            max = fraction;
-        }
-        if (fraction.compareTo(min) < 0) {
-            min = fraction;
+        if (this.max == null) {
+            this.max = fraction;
+            this.min = fraction;
+        } else {
+            if (fraction.compareTo(this.max) > 0) {
+                this.max = fraction;
+            }
+            if (fraction.compareTo(this.min) < 0) {
+                this.min = fraction;
+            }
         }
         fractions.add(fraction);
         return this;
@@ -54,11 +57,16 @@ public class FractionList {
         if (index < 0 || index > fractions.size()) {
             System.out.println("Invalid index");
         } else {
-            if (fraction.compareTo(max) > 0) {
-                max = fraction;
-            }
-            if (fraction.compareTo(min) < 0) {
-                min = fraction;
+            if (this.max == null) {
+                this.max = fraction;
+                this.min = fraction;
+            } else {
+                if (fraction.compareTo(this.max) > 0) {
+                    this.max = fraction;
+                }
+                if (fraction.compareTo(this.min) < 0) {
+                    this.min = fraction;
+                }
             }
             fractions.add(index, fraction);
         }
@@ -75,7 +83,6 @@ public class FractionList {
     public Fraction getFraction(int index) {
         return fractions.get(index);
     }
-
 
     public FractionList remove(int index) {
         Fraction fraction = fractions.remove(index);
@@ -104,8 +111,8 @@ public class FractionList {
         return fractions.size();
     }
 
-    // more -> larger
-    public int countMoreThan(Fraction fraction) {
+
+    public int countLargerThan(Fraction fraction) {
         int count = 0;
         for (Fraction f : fractions) {
             if (f.compareTo(fraction) > 0) {
@@ -128,6 +135,6 @@ public class FractionList {
 
     @Override
     public String toString() {
-        return String.format("FractionList{fractions=%s}", fractions);
+        return String.format("FractionList{%s}", fractions);
     }
 }

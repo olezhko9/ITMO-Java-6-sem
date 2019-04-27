@@ -1,18 +1,15 @@
+package FractionPolynom;
+
 public class Fraction implements Comparable<Fraction>{
     private final int numerator;
     private final int denominator;
-
-//    public Fraction() {
-//        this.numerator = 0;
-//        this.denominator = 1;
-//    }
 
     public Fraction(int numerator, int denominator) {
         if (denominator == 0) {
             System.out.println("denominator shouldn't be 0");
             throw new RuntimeException();
         } else {
-            int g = this.gcd(numerator, denominator);
+            int g = gcd(numerator, denominator);
             this.numerator = numerator / g;
             this.denominator = denominator / g;
         }

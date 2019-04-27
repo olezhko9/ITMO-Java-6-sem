@@ -1,3 +1,8 @@
+import FractionPolynom.Fraction;
+import FractionPolynom.FractionList;
+import FractionPolynom.Polynom;
+
+import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,18 +14,17 @@ public class Main {
 
         FractionList fractionList = new FractionList();
         fractionList.insert(frac).insert(frac1).insert(frac2).insert(frac3, 0).remove(2);
+        fractionList.insert(new Fraction(2));
         System.out.println(fractionList);
+
         System.out.println("Max is " + fractionList.getMax());
         System.out.println("Min is " + fractionList.getMin());
-        System.out.println(fractionList.countMoreThan(frac1));
-        System.out.println(fractionList.countLessThan(frac3));
+        System.out.println("Larger then " + frac1 + ": "  + fractionList.countLargerThan(frac1));
+        System.out.println("Less then " + frac3 + ": "  + fractionList.countLessThan(frac3));
 
         FractionList fractionListFromFile = new FractionList();
-        fractionListFromFile.fromFile("C:\\Users\\Oleg Naumov\\YandexDisk\\Учеба\\6 семестр\\Технологии программирования\\lab 1 OOP\\src\\list.txt");
+        fractionListFromFile.insertFromFile(new File("resources/list.txt"));
         System.out.println(fractionListFromFile);
-
-
-        fractionList.insert(new Fraction(2));
 
         FractionList fractionArray = new FractionList();
         fractionArray.insert(frac1).insert(frac2).insert(new Fraction(3));
@@ -30,7 +34,7 @@ public class Main {
         System.out.println(p1);
         System.out.println(p2);
 
-        Polynom p = p1.addPolynom(p2);
-        System.out.println(p);
+        Polynom polynomSumma = p1.addPolynom(p2);
+        System.out.println(polynomSumma);
     }
 }
