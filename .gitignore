@@ -1,1 +1,6 @@
 *.pdf
+*.iml
+
+*/.idea
+.idea
+out
