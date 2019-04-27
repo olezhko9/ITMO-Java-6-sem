@@ -1,15 +1,16 @@
 public class Fraction implements Comparable<Fraction>{
-    private int numerator;
-    private int denominator;
+    private final int numerator;
+    private final int denominator;
 
-    public Fraction() {
-        this.numerator = 0;
-        this.denominator = 1;
-    }
+//    public Fraction() {
+//        this.numerator = 0;
+//        this.denominator = 1;
+//    }
 
     public Fraction(int numerator, int denominator) {
         if (denominator == 0) {
             System.out.println("denominator shouldn't be 0");
+            throw new RuntimeException();
         } else {
             int g = this.gcd(numerator, denominator);
             this.numerator = numerator / g;
@@ -27,7 +28,7 @@ public class Fraction implements Comparable<Fraction>{
                 this.denominator * f.denominator);
     }
 
-    private int gcd(int a, int b) {
+    private static int gcd(int a, int b) {
         return b == 0 ? a : gcd(b, a % b);
     }
 

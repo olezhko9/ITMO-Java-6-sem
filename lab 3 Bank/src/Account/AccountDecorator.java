@@ -4,9 +4,10 @@ import Client.Client;
 
 public class AccountDecorator implements Account {
 
-    private Account account;
+    private /*final*/ Account account;  // delegate
+//    private final int limit;
 
-    public AccountDecorator(Account account) {
+    public AccountDecorator(Account account/*, int limit*/) {
         this.account = account;
     }
 
@@ -22,6 +23,8 @@ public class AccountDecorator implements Account {
 
     @Override
     public void withdrawal(double value) {
+        if (value > limit)
+            throw new RuntimeException();
         this.account.withdrawal(value);
     }
 

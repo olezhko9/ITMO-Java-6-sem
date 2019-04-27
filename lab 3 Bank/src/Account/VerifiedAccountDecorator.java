@@ -2,7 +2,10 @@ package Account;
 
 import Client.Client;
 
+/// SuspiciousAccount impls Account
 public class VerifiedAccountDecorator extends AccountDecorator{
+
+//    Account delegate;
 
     private boolean isVerifiedAccount = true;
     private double maxAmount;

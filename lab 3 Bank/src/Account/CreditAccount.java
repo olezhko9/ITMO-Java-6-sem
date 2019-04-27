@@ -2,7 +2,7 @@ package Account;
 
 import Client.Client;
 
-public class CreditAccount extends AccountAbs {
+public class CreditAccount extends AccountAbs /*implements Account*/ {
 
     private double limit;
     private double commission;

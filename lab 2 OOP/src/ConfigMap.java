@@ -1,7 +1,33 @@
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class ConfigMap {
-    private HashMap<String, HashMap<String, String>> configMap = new HashMap<>();
+    // int x
+    // int * x
+    // const int x
+    // int const x
+    // const int * x
+    // int const * x
+    // const * int  -- will not compile
+    //
+    // int * const x;     *x = 42;    (forbidden) x = nullptr;
+    // final x;
+    //
+    // const int * const x
+    // int const * const x
+    private final HashMap<String, HashMap<String, String>> configMap = new HashMap<>();
+
+//    public ConfigMap(Reader reader) {
+//        this.configMap = parse(reader);
+//    }
+//
+//    static ConfigMap fromReader(Reader reader) {
+//        return parse(reader);
+//    }
+
+//    private static Map<> parse(reader) {}
 
     public void addSection(String s_name){
         HashMap<String, String> section_map = new HashMap<>();

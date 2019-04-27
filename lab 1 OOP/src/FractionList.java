@@ -1,11 +1,14 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FractionList {
 
-    private ArrayList<Fraction> fractions = new ArrayList<>();
+    // Consider using the most generic type, e.g. List<Fraction>
+    private List<Fraction> fractions = new ArrayList<>();
     private Fraction max = new Fraction(Integer.MIN_VALUE, 1);
     private Fraction min = new Fraction(Integer.MAX_VALUE, 1);
 
@@ -36,18 +39,18 @@ public class FractionList {
         }
     }
 
-    public FractionList insert(Fraction fraction){
-        if (fraction.compareTo(max) > 0){
+    public FractionList insert(Fraction fraction) {
+        if (fraction.compareTo(max) > 0) {
             max = fraction;
         }
-        if (fraction.compareTo(min) < 0){
+        if (fraction.compareTo(min) < 0) {
             min = fraction;
         }
         fractions.add(fraction);
         return this;
     }
 
-    public FractionList insert(Fraction fraction, int index){
+    public FractionList insert(Fraction fraction, int index) {
         if (index < 0 || index > fractions.size()) {
             System.out.println("Invalid index");
         } else {
@@ -62,19 +65,19 @@ public class FractionList {
         return this;
     }
 
-    public FractionList insert(FractionList fractionList){
-        for (Fraction f : fractionList.getFractions()){
+    public FractionList insert(FractionList fractionList) {
+        for (Fraction f : fractionList.getFractions()) {
             this.insert(f);
         }
         return this;
     }
 
-    public Fraction getFraction(int index){
+    public Fraction getFraction(int index) {
         return fractions.get(index);
     }
 
 
-    public FractionList remove(int index){
+    public FractionList remove(int index) {
         Fraction fraction = fractions.remove(index);
         if (fraction.compareTo(max) == 0) {
             Fraction real_max = new Fraction(Integer.MIN_VALUE, 1);
@@ -97,14 +100,15 @@ public class FractionList {
         return this;
     }
 
-    public int length(){
+    public int length() {
         return fractions.size();
     }
 
+    // more -> larger
     public int countMoreThan(Fraction fraction) {
         int count = 0;
-        for (Fraction f : fractions){
-            if (f.compareTo(fraction) > 0){
+        for (Fraction f : fractions) {
+            if (f.compareTo(fraction) > 0) {
                 ++count;
             }
         }
@@ -114,8 +118,8 @@ public class FractionList {
 
     public int countLessThan(Fraction fraction) {
         int count = 0;
-        for (Fraction f : fractions){
-            if (f.compareTo(fraction) < 0){
+        for (Fraction f : fractions) {
+            if (f.compareTo(fraction) < 0) {
                 ++count;
             }
         }
@@ -124,8 +128,6 @@ public class FractionList {
 
     @Override
     public String toString() {
-        return "FractionList{" +
-                "fractions=" + fractions +
-                '}';
+        return String.format("FractionList{fractions=%s}", fractions);
     }
 }

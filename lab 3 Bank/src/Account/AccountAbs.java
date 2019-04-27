@@ -2,11 +2,9 @@ package Account;
 
 import Client.Client;
 
-public abstract class AccountAbs implements Account{
+/*public*/ abstract class AccountAbs implements Account{
     protected double balance;
     protected Client accountOwner;
-
-    public AccountAbs() {}
 
     public AccountAbs(Client client, double balance) {
         this.accountOwner = client;
@@ -25,7 +23,7 @@ public abstract class AccountAbs implements Account{
         balance += value;
     }
 
-    public void transfer(Account account, double value) {
+    public final void transfer(Account account, double value) {
         if (account.getAccountOwner() == this.accountOwner) {
             withdrawal(value);
             account.deposit(value);
