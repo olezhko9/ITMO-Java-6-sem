@@ -36,4 +36,8 @@ abstract class AbstractAccount implements Account{
     }
 
     public abstract void withdrawal(double value);
+
+    public abstract void applyPercent();
+
+    public abstract void applyCommission();
 }

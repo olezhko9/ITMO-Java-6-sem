@@ -12,9 +12,16 @@ public class SimpleAccount extends AbstractAccount implements Account {
     @Override
     public void withdrawal(double value) {
         if (this.balance < value) {
-            System.out.println("Not enough money on account.");
+            System.out.println("[Default] Недостаточно средств.");
         } else {
             this.balance -= value;
+            System.out.println("[Default] Успешное снятие наличных.");
         }
     }
+
+    @Override
+    public void applyPercent() { }
+
+    @Override
+    public void applyCommission() { }
 }

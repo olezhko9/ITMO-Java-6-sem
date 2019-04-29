@@ -1,3 +1,4 @@
+import bank.*;
 import account.*;
 import client.*;
 import java.util.Date;
@@ -6,6 +7,13 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
+        final double commission = 30.0;
+        final double percent = 2.1;
+        final double maxSuspiciousAmount = 1000.0;
+
+        BankWorker bankWorker = new CashWorker();
+        bankWorker.setNextWorker(new NotificationWorker());
+
         Client bankClient =  new Client.Builder()
                 .withFirstName("Oleg")
                 .withSecondName("Naumov")
@@ -13,22 +21,25 @@ public class Main {
                 .withPassportNumber("999999")
                 .build();
 
-        System.out.println(bankClient.getFirstName() + bankClient.getSecondName());
-        System.out.println(bankClient.getAddress());
-
-        final double commission = 30.0;
-        final double percent = 2.1;
-        final double maxAmount = 1000.0;
-        AccountFactory accountFactory = new AccountFactory(commission, percent, maxAmount);
+        AccountFactory accountFactory = new AccountFactory(commission, percent, maxSuspiciousAmount);
         Account creditAccount = accountFactory.newCreditAccount(bankClient, 10000.0, 1000.0);
+        System.out.println("Текущий баланс: " + creditAccount.getBalance());
         creditAccount.deposit(500.0);
         creditAccount.withdrawal(11000.0);
-        System.out.println(creditAccount.getBalance());
+        System.out.println("Текущий баланс: " + creditAccount.getBalance());
 
-        Account depositAccount = accountFactory.newDepositAccount(bankClient, 2000.0, new Date());
-        creditAccount.transfer(depositAccount, 300.0);
+        bankWorker.processRequest(0, creditAccount);
+        System.out.println("Текущий баланс: " + creditAccount.getBalance());
 
-        System.out.println(creditAccount.getBalance());
-        System.out.println(depositAccount.getBalance());
+        System.out.println("\n\nПодозрительный депозитный аккаунт");
+        Client suspiciousClient = new Client.Builder()
+                .withFirstName("Ilya")
+                .withSecondName("Markushev")
+                .build();
+
+        Account depositAccount = accountFactory.newDepositAccount(suspiciousClient, 2000.0, new Date());
+        System.out.println("Текущий баланс: " + depositAccount.getBalance());
+        depositAccount.withdrawal(2000);
+        System.out.println("Текущий баланс: " + depositAccount.getBalance());
     }
 }

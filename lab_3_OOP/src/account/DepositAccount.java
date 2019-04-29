@@ -18,11 +18,23 @@ public class DepositAccount extends AbstractAccount implements Account {
     @Override
     public void withdrawal(double value) {
         if (endDate.after(new Date())) {
-            System.out.println("You can't withdraw your money until deposit end date");
+            System.out.println("[Deposit] Вы не можете снять деньги до наступления даты.");
         } else if (this.balance < value) {
-            System.out.println("Not enough money on account.");
+            System.out.println("[Deposit] Недостаточно средств.");
         } else {
             this.balance -= value;
+            System.out.println("[Deposit] Успешное снятие наличных.");
         }
+    }
+
+    @Override
+    public void applyPercent() {
+        this.balance = this.balance + this.balance * this.percent / 100;
+        System.out.println("[Deposit] Примнял запрос о комиссии.");
+    }
+
+    @Override
+    public void applyCommission() {
+
     }
 }

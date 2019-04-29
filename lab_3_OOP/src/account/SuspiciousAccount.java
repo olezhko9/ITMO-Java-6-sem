@@ -25,12 +25,9 @@ public class SuspiciousAccount implements Account {
     @Override
     public void withdrawal(double value) {
         if (value > this.maxAmount) {
-            System.out.println("Invalid operation, verify your account.");
-        } else if (delegateAccount.getBalance() < value) {
-            System.out.println("Not enough money on account.");
+            System.out.println("[Suspicious] Подтвердите аккаунт для выполнения данной операции.");
         } else {
             delegateAccount.withdrawal(value);
-            System.out.println("Withdrawing success.");
         }
     }
 
@@ -42,10 +39,19 @@ public class SuspiciousAccount implements Account {
     @Override
     public void transfer(Account account, double value) {
         if (value > maxAmount) {
-            System.out.println("Invalid operation, verify your account.");
+            System.out.println("[Suspicious] Подтвердите аккаунт для выполнения данной операции.");
         } else {
             delegateAccount.transfer(account, value);
-            System.out.println("Transfer success.");
         }
+    }
+
+    @Override
+    public void applyPercent() {
+        delegateAccount.applyPercent();
+    }
+
+    @Override
+    public void applyCommission() {
+        delegateAccount.applyCommission();
     }
 }
