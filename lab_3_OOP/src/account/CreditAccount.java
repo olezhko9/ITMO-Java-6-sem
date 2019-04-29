@@ -1,8 +1,8 @@
-package Account;
+package account;
 
-import Client.Client;
+import client.Client;
 
-public class CreditAccount extends AccountAbs /*implements Account*/ {
+public class CreditAccount extends AbstractAccount implements Account {
 
     private double limit;
     private double commission;

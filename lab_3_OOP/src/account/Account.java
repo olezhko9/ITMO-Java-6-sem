@@ -1,6 +1,6 @@
-package Account;
+package account;
 
-import Client.Client;
+import client.Client;
 
 public interface Account {
     void withdrawal(double value);

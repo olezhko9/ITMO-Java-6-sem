@@ -1,12 +1,15 @@
-package Account;
+package account;
 
-import Client.Client;
+import client.Client;
 
-/*public*/ abstract class AccountAbs implements Account{
-    protected double balance;
-    protected Client accountOwner;
 
-    public AccountAbs(Client client, double balance) {
+abstract class AbstractAccount implements Account{
+    double balance;
+    Client accountOwner;
+
+    public AbstractAccount() { }
+
+    public AbstractAccount(Client client, double balance) {
         this.accountOwner = client;
         this.balance = balance;
     }

@@ -1,10 +1,10 @@
-package Account;
+package account;
 
-import Client.Client;
-
+import client.Client;
 import java.util.Date;
 
-public class DepositAccount extends AccountAbs {
+
+public class DepositAccount extends AbstractAccount implements Account {
 
     private Date endDate;
     private double percent;

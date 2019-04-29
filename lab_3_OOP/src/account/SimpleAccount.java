@@ -1,8 +1,9 @@
-package Account;
+package account;
 
-import Client.Client;
+import client.Client;
 
-public class SimpleAccount extends AccountAbs {
+
+public class SimpleAccount extends AbstractAccount implements Account {
 
     public SimpleAccount(Client client, double balance) {
         super(client, balance);
