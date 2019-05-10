@@ -5,6 +5,7 @@ public class Client {
     private String secondName;
     private String address;
     private String passportNumber;
+    private boolean wantsMessages;
 
     public String getFirstName() {
         return this.firstName;
@@ -18,6 +19,8 @@ public class Client {
 
     public String getPassportNumber() { return this.passportNumber; }
 
+    public boolean wantsGetMessages() { return this.wantsMessages; }
+
     public boolean isSuspicious() {
         return this.address == null || this.passportNumber == null;
     }
@@ -27,6 +30,7 @@ public class Client {
         private String secondName;
         private String address;
         private String passportNumber;
+        private boolean wantsMessages = false;
 
         public Builder withFirstName(String value) {
             this.firstName = value;
@@ -35,6 +39,12 @@ public class Client {
 
         public Builder withSecondName(String value) {
             this.secondName = value;
+            return this;
+        }
+
+        public Builder withName(String firstName, String secondName){
+            this.firstName = firstName;
+            this.secondName = secondName;
             return this;
         }
 
@@ -48,6 +58,11 @@ public class Client {
             return this;
         }
 
+        public Builder withMessages(boolean wantsMessages) {
+            this.wantsMessages = wantsMessages;
+            return this;
+        }
+
         public Client build() {
             return new Client(this);
         }
@@ -58,5 +73,6 @@ public class Client {
         secondName = builder.secondName;
         address = builder.address;
         passportNumber = builder.passportNumber;
+        wantsMessages = builder.wantsMessages;
     }
 }

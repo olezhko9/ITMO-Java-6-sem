@@ -14,11 +14,12 @@ public class Main {
         BankWorker bankWorker = new CashWorker();
         bankWorker.setNextWorker(new NotificationWorker());
 
+        System.out.println("\n\nСоздаем кредитный аккаунт");
         Client bankClient =  new Client.Builder()
-                .withFirstName("Oleg")
-                .withSecondName("Naumov")
+                .withName("Oleg", "Naumov")
                 .withAddress("Moscow")
                 .withPassportNumber("999999")
+                .withMessages(true)
                 .build();
 
         AccountFactory accountFactory = new AccountFactory(commission, percent, maxSuspiciousAmount);
@@ -31,7 +32,7 @@ public class Main {
         bankWorker.processRequest(0, creditAccount);
         System.out.println("Текущий баланс: " + creditAccount.getBalance());
 
-        System.out.println("\n\nПодозрительный депозитный аккаунт");
+        System.out.println("\n\nСоздаем подозрительный депозитный аккаунт");
         Client suspiciousClient = new Client.Builder()
                 .withFirstName("Ilya")
                 .withSecondName("Markushev")
