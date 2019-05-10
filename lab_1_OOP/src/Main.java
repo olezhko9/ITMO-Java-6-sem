@@ -17,8 +17,8 @@ public class Main {
         fractionList.insert(new Fraction(2));
         System.out.println(fractionList);
 
-        System.out.println("Max is " + fractionList.getMax());
-        System.out.println("Min is " + fractionList.getMin());
+        System.out.println("Max is " + fractionList.getMaxFraction());
+        System.out.println("Min is " + fractionList.getMinFraction());
         System.out.println("Larger then " + frac1 + ": "  + fractionList.countLargerThan(frac1));
         System.out.println("Less then " + frac3 + ": "  + fractionList.countLessThan(frac3));
 
@@ -31,10 +31,7 @@ public class Main {
 
         Polynom p1 = new Polynom(fractionList);
         Polynom p2 = new Polynom(fractionArray);
-        System.out.println(p1);
-        System.out.println(p2);
-
         Polynom polynomSumma = p1.addPolynom(p2);
-        System.out.println(polynomSumma);
+        System.out.println(String.format("%s + %s = %s", p1, p2, polynomSumma));
     }
 }

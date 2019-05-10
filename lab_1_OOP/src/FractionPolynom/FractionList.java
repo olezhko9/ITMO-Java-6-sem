@@ -9,15 +9,15 @@ import java.util.Scanner;
 public class FractionList {
 
     private List<Fraction> fractions = new ArrayList<>();
-    private Fraction max = null;
-    private Fraction min = null;
+    private Fraction maxFraction = null;
+    private Fraction minFraction = null;
 
-    public Fraction getMax() {
-        return this.max;
+    public Fraction getMaxFraction() {
+        return this.maxFraction;
     }
 
-    public Fraction getMin() {
-        return this.min;
+    public Fraction getMinFraction() {
+        return this.minFraction;
     }
 
     public List<Fraction> getFractions() {
@@ -38,18 +38,9 @@ public class FractionList {
     }
 
     public FractionList insert(Fraction fraction) {
-        if (this.max == null) {
-            this.max = fraction;
-            this.min = fraction;
-        } else {
-            if (fraction.compareTo(this.max) > 0) {
-                this.max = fraction;
-            }
-            if (fraction.compareTo(this.min) < 0) {
-                this.min = fraction;
-            }
-        }
         fractions.add(fraction);
+        this.updateMinAndMax(fraction);
+
         return this;
     }
 
@@ -57,18 +48,8 @@ public class FractionList {
         if (index < 0 || index > fractions.size()) {
             System.out.println("Invalid index");
         } else {
-            if (this.max == null) {
-                this.max = fraction;
-                this.min = fraction;
-            } else {
-                if (fraction.compareTo(this.max) > 0) {
-                    this.max = fraction;
-                }
-                if (fraction.compareTo(this.min) < 0) {
-                    this.min = fraction;
-                }
-            }
             fractions.add(index, fraction);
+            this.updateMinAndMax(fraction);
         }
         return this;
     }
@@ -85,23 +66,17 @@ public class FractionList {
     }
 
     public FractionList remove(int index) {
-        Fraction fraction = fractions.remove(index);
-        if (fraction.compareTo(max) == 0) {
-            Fraction real_max = new Fraction(Integer.MIN_VALUE, 1);
-            for (Fraction f : fractions) {
-                if (real_max.compareTo(f) < 0) {
-                    real_max = f;
+        if (index < 0 || index > fractions.size()) {
+            System.out.println("Invalid index");
+        } else {
+            fractions.remove(index);
+            if (fractions.size() != 0) {
+                for (Fraction f : fractions) {
+                    this.updateMinAndMax(f);
                 }
-                max = real_max;
-            }
-        }
-        if (fraction.compareTo(min) == 0) {
-            Fraction real_min = new Fraction(Integer.MAX_VALUE, 1);
-            for (Fraction f : fractions) {
-                if (real_min.compareTo(f) > 0) {
-                    real_min = f;
-                }
-                min = real_min;
+            } else {
+                this.minFraction = null;
+                this.maxFraction = null;
             }
         }
         return this;
@@ -131,6 +106,20 @@ public class FractionList {
             }
         }
         return count;
+    }
+
+    private void updateMinAndMax(Fraction fraction) {
+        if (this.maxFraction == null) {
+            this.maxFraction = fraction;
+            this.minFraction = fraction;
+        } else {
+            if (fraction.compareTo(this.maxFraction) > 0) {
+                this.maxFraction = fraction;
+            }
+            if (fraction.compareTo(this.minFraction) < 0) {
+                this.minFraction = fraction;
+            }
+        }
     }
 
     @Override
