@@ -14,14 +14,17 @@ class DataWorker {
             data[i] = parseNumbersFromString(line);
         }
 
+        br.close();
         return data;
     }
 
     static void writeDataToFile(String filename, double[] data) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
-        for (double el : data) {
-            bw.write(Double.toString(el));
+        for (double datum : data) {
+            bw.write(datum + "\n");
         }
+
+        bw.close();
     }
 
     private static double[] parseNumbersFromString(String s) {
