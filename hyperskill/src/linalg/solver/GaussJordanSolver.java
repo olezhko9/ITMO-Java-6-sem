@@ -5,6 +5,14 @@ import linalg.vector.VectorMathException;
 
 public class GaussJordanSolver extends LinearEquationSolver {
 
+    private int precision;
+
+    public GaussJordanSolver() {}
+
+    public GaussJordanSolver(int precision) {
+        this.precision = precision;
+    }
+
     @Override
     public double[] solve(double[][] A, double[] Y) throws SolverException{
 
@@ -37,7 +45,8 @@ public class GaussJordanSolver extends LinearEquationSolver {
         }
 
         for (int i = 0; i < nrow; i++) {
-            X[i] = extendedA[i][nrow];
+            double k = Math.pow(10.0, this.precision);
+            X[i] = Math.round(extendedA[i][nrow] * k) / k;
         }
 
         return X;

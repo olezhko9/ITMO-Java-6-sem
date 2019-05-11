@@ -18,7 +18,7 @@ public class Main {
         double[] X;
 
         try {
-            LinearEquationSolver gaussJordanSolver = new GaussJordanSolver();
+            LinearEquationSolver gaussJordanSolver = new GaussJordanSolver(2);
             X = gaussJordanSolver.solve(A, Y);
             System.out.println(Arrays.toString(X));
         } catch (SolverException e) {
@@ -39,8 +39,6 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Wrong input file format");
         }
-
-
     }
 
 
