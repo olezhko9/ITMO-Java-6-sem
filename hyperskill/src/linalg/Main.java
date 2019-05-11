@@ -10,7 +10,11 @@ public class Main {
         System.out.println("Linear Equation Solver");
         double[] va = {1, 2, 3};
         double[] vb = {3, 2, 1};
-        double[] res = VectorMath.divide(va, 2);
-        System.out.println(Arrays.toString(res));
+        try {
+            double[] res = VectorMath.add(va, vb);
+            System.out.println(Arrays.toString(res));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

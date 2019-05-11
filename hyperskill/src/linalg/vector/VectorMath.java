@@ -13,10 +13,9 @@ public class VectorMath {
         return product;
     }
 
-    public static double[] mult(double[] va, double[] vb) {
+    public static double[] mult(double[] va, double[] vb) throws VectorMathException {
         if (va.length != vb.length) {
-            // TODO: handle incompatible dimensions
-            return null;
+            throw new VectorMathException(String.format("Incompatible dimensions: %d and %d", va.length, vb.length));
         }
         double[] product = new double[va.length];
 
@@ -27,10 +26,9 @@ public class VectorMath {
         return product;
     }
 
-    public static double[] divide(double[] va, double a) {
+    public static double[] divide(double[] va, double a) throws VectorMathException{
         if (a == 0.0) {
-            // TODO: handle division by zero
-            return null;
+            throw new VectorMathException("Division by zero");
         }
 
         double[] product = new double[va.length];
@@ -53,10 +51,9 @@ public class VectorMath {
         return product;
     }
 
-    public static double[] add(double[] va, double[] vb) {
+    public static double[] add(double[] va, double[] vb) throws VectorMathException{
         if (va.length != vb.length) {
-            // TODO: handle incompatible dimensions
-            return null;
+            throw new VectorMathException(String.format("Incompatible dimensions: %d and %d", va.length, vb.length));
         }
 
         double[] product = new double[va.length];
@@ -79,10 +76,9 @@ public class VectorMath {
         return product;
     }
 
-    public static double[] minus(double[] va, double[] vb) {
+    public static double[] minus(double[] va, double[] vb) throws VectorMathException{
         if (va.length != vb.length) {
-            // TODO: handle incompatible dimensions
-            return null;
+            throw new VectorMathException(String.format("Incompatible dimensions: %d and %d", va.length, vb.length));
         }
 
         double[] product = new double[va.length];
