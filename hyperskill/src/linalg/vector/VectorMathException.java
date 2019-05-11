@@ -1,12 +1,12 @@
 package linalg.vector;
 
-class VectorMathException extends Exception {
+public class VectorMathException extends Exception {
 
-    VectorMathException(String msg) {
+    public VectorMathException(String msg) {
         super(msg);
     }
 
-    VectorMathException(String msg, Exception cause){
+    public VectorMathException(String msg, Exception cause){
         super(msg, cause);
     }
 

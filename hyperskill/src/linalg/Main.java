@@ -1,19 +1,30 @@
 package linalg;
 
-import linalg.vector.VectorMath;
-
 import java.util.Arrays;
+
+import linalg.solver.LinearEquationSolver;
+import linalg.solver.GaussJordanSolver;
+import linalg.solver.SolverException;
+
+
 
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("Linear Equation Solver");
-        double[] va = {1, 2, 3};
-        double[] vb = {3, 2, 1};
+        double[][] A = {
+                {2, 1, 3},
+                {-1, 2, 1},
+                {3, 1, 6}
+        };
+
+        double[] Y = {43, 3, 4};
+
         try {
-            double[] res = VectorMath.add(va, vb);
-            System.out.println(Arrays.toString(res));
-        } catch (Exception e) {
+            LinearEquationSolver gaussJordanSolver = new GaussJordanSolver();
+            double[] ans = gaussJordanSolver.solve(A, Y);
+            System.out.println(Arrays.toString(ans));
+        } catch (SolverException e) {
             System.out.println(e.getMessage());
         }
     }
