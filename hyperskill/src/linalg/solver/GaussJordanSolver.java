@@ -16,7 +16,6 @@ public class GaussJordanSolver extends LinearEquationSolver {
     @Override
     public double[] solve(double[][] A, double[] Y) throws SolverException{
 
-        double[] X = new double[A.length];
         double[][] extendedA = new double[A.length][A[0].length + 1];
         int nrow = extendedA.length;
 
@@ -25,19 +24,25 @@ public class GaussJordanSolver extends LinearEquationSolver {
             extendedA[i][A[i].length] = Y[i];
         }
 
-        for (int i = 0; i < nrow; i++) {
-            double m = extendedA[i][i];
-            try {
+        return this.solve(extendedA);
+    }
 
+    @Override
+    public double[] solve(double[][] extendedMatrix) throws SolverException {
+
+        int nrow = extendedMatrix.length;
+        double[] X = new double[nrow];
+
+        for (int i = 0; i < nrow; i++) {
+            double m = extendedMatrix[i][i];
+            try {
                 for (int j = 0; j < nrow; j++) {
                     if (j != i) {
-                        double k = extendedA[j][i] / m;
-                        extendedA[j] = VectorMath.minus(extendedA[j], VectorMath.mult(extendedA[i], k));
+                        double k = extendedMatrix[j][i] / m;
+                        extendedMatrix[j] = VectorMath.minus(extendedMatrix[j], VectorMath.mult(extendedMatrix[i], k));
                     }
                 }
-
-                extendedA[i] = VectorMath.divide(extendedA[i], m);
-
+                extendedMatrix[i] = VectorMath.divide(extendedMatrix[i], m);
             } catch (VectorMathException e) {
                 throw new SolverException("Can't solve given equation");
             }
@@ -46,7 +51,7 @@ public class GaussJordanSolver extends LinearEquationSolver {
 
         for (int i = 0; i < nrow; i++) {
             double k = Math.pow(10.0, this.precision);
-            X[i] = Math.round(extendedA[i][nrow] * k) / k;
+            X[i] = Math.round(extendedMatrix[i][nrow] * k) / k;
         }
 
         return X;
