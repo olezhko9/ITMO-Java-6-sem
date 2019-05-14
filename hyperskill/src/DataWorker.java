@@ -5,11 +5,12 @@ class DataWorker {
     static double[][] readDataFromFile(String filename) throws IOException {
 
         BufferedReader br = new BufferedReader(new FileReader(filename));
+        String[] firstLine = br.readLine().split(" ");
+        int nVars = Integer.parseInt(firstLine[0]);
+        int nEquations = Integer.parseInt(firstLine[1]);
+        double[][] data = new double[nEquations][nVars + 1];
 
-        int n = Integer.parseInt(br.readLine());
-        double[][] data = new double[n][n + 1];
-
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < nEquations; i++) {
             String line = br.readLine();
             data[i] = parseNumbersFromString(line);
         }
@@ -24,6 +25,12 @@ class DataWorker {
             bw.write(datum + "\n");
         }
 
+        bw.close();
+    }
+
+    static void writeDataToFile(String filename, String data) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+        bw.write(data);
         bw.close();
     }
 

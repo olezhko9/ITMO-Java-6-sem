@@ -10,3 +10,5 @@ public class SolverException extends Exception{
         super(msg, cause);
     }
 }
+
+

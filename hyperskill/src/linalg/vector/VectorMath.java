@@ -89,4 +89,11 @@ public class VectorMath {
 
         return product;
     }
+
+    public static boolean isZeros(double[] va, int start, int end) {
+        for (int i = start; i < end; i++) {
+            if (va[i] != 0) return false;
+        }
+        return true;
+    }
 }
