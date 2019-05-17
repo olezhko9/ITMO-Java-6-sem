@@ -1,14 +1,16 @@
+import linalg.complex.Complex;
+
 import java.io.*;
 
 class DataWorker {
 
-    static double[][] readDataFromFile(String filename) throws IOException {
+    static Complex[][] readDataFromFile(String filename) throws IOException {
 
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String[] firstLine = br.readLine().split(" ");
         int nVars = Integer.parseInt(firstLine[0]);
         int nEquations = Integer.parseInt(firstLine[1]);
-        double[][] data = new double[nEquations][nVars + 1];
+        Complex[][] data = new Complex[nEquations][nVars + 1];
 
         for (int i = 0; i < nEquations; i++) {
             String line = br.readLine();
@@ -19,9 +21,9 @@ class DataWorker {
         return data;
     }
 
-    static void writeDataToFile(String filename, double[] data) throws IOException {
+    static void writeDataToFile(String filename, Complex[] data) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
-        for (double datum : data) {
+        for (Complex datum : data) {
             bw.write(datum + "\n");
         }
 
@@ -34,12 +36,12 @@ class DataWorker {
         bw.close();
     }
 
-    private static double[] parseNumbersFromString(String s) {
+    private static Complex[] parseNumbersFromString(String s) {
         String[] parts = s.split("\\s+");
 
-        double[] numbers = new double[parts.length];
+        Complex[] numbers = new Complex[parts.length];
         for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = Double.parseDouble(parts[i]);
+            numbers[i] = new Complex(parts[i]);
         }
 
         return numbers;

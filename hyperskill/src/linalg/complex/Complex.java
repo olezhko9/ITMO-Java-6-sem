@@ -8,7 +8,7 @@ public class Complex {
     public static final double EPSILON = 0.001;
 
     final double real;
-    final double imag
+    final double imag;
 
     public Complex(double real, double imag) {
         this.real = real;
@@ -17,7 +17,7 @@ public class Complex {
 
     public Complex(String s) throws NumberFormatException {
         final String[] strs = split(s);
-        System.out.println(strs[0] + " " + strs[1]);
+//        System.out.println(strs[0] + " " + strs[1]);
         if (strs[1].contains("i")) {
             strs[1] = strs[1].replace("i", "1");
         }
@@ -34,6 +34,8 @@ public class Complex {
     public static Complex add(Complex a, Complex b) {
         return new Complex(a.real + b.real, a.imag + b.imag);
     }
+
+    public static Complex sub(Complex a, Complex b) { return new Complex(a.real - b.real, a.imag - b.imag); }
 
     public static Complex divide(Complex a, Complex b) {
         final Complex bConjugate = b.conjugate();

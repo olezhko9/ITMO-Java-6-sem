@@ -1,10 +1,12 @@
 package linalg.solver;
 
+import linalg.complex.Complex;
+
 public abstract class LinearEquationSolver {
 
     public LinearEquationSolver() {}
 
-    public abstract double[] solve(double[][] A, double[] Y) throws SolverException;
+    public abstract Complex[] solve(Complex[][] A, Complex[] Y) throws SolverException;
 
-    public abstract double[] solve(double[][] extendedA) throws SolverException;
+    public abstract Complex[] solve(Complex[][] extendedA) throws SolverException;
 }

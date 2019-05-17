@@ -1,5 +1,6 @@
 package linalg.solver;
 
+import linalg.complex.Complex;
 import linalg.vector.VectorMath;
 import linalg.vector.VectorMathException;
 
@@ -14,9 +15,9 @@ public class GaussJordanSolver extends LinearEquationSolver {
     }
 
     @Override
-    public double[] solve(double[][] A, double[] Y) throws SolverException{
+    public Complex[] solve(Complex[][] A, Complex[] Y) throws SolverException{
 
-        double[][] extendedA = new double[A.length][A[0].length + 1];
+        Complex[][] extendedA = new Complex[A.length][A[0].length + 1];
         int nEquations = extendedA.length;
 
         for (int i = 0; i < nEquations; i++) {
@@ -28,7 +29,7 @@ public class GaussJordanSolver extends LinearEquationSolver {
     }
 
     @Override
-    public double[] solve(double[][] extendedMatrix) throws SolverException {
+    public Complex[] solve(Complex[][] extendedMatrix) throws SolverException {
 
         int nEquations = extendedMatrix.length;
         int nVars = extendedMatrix[0].length - 1;
@@ -41,15 +42,15 @@ public class GaussJordanSolver extends LinearEquationSolver {
                 continue;
             }
 
-            double m = extendedMatrix[i][i];
+            Complex m = extendedMatrix[i][i];
             try {
-                if (m == 0) {
+                if (m.equals(new Complex(0.0, 0.0))) {
                     int l = i;
-                    while (m == 0 && l < nEquations) {
+                    while (m.equals(new Complex(0.0, 0.0)) && l < nEquations) {
                         l += 1;
                         m = extendedMatrix[l][i];
                     }
-                    double[] temp = extendedMatrix[i];
+                    Complex[] temp = extendedMatrix[i];
                     extendedMatrix[i] = extendedMatrix[l];
                     extendedMatrix[l] = temp;
                 }
@@ -60,7 +61,7 @@ public class GaussJordanSolver extends LinearEquationSolver {
             try {
                 for (int j = 0; j < nEquations; j++) {
                     if (j != i) {
-                        double k = extendedMatrix[j][i] / m;
+                        Complex k = Complex.divide(extendedMatrix[j][i], m);
                         extendedMatrix[j] = VectorMath.minus(extendedMatrix[j], VectorMath.mult(extendedMatrix[i], k));
                     }
                 }
@@ -79,19 +80,19 @@ public class GaussJordanSolver extends LinearEquationSolver {
             throw new InfiniteSolutionsException("Infinitely many solutions");
         }
 
-        double[] X = new double[nonZeroRows];
+        Complex[] X = new Complex[nonZeroRows];
 
         double k = Math.pow(10.0, this.precision);
         for (int i = 0; i < nonZeroRows; i++) {
-            X[i] = Math.round(extendedMatrix[i][nVars] * k) / k;
+            X[i] = extendedMatrix[i][nVars];
         }
 
         return X;
     }
 
-    private boolean checkForNoSolution(double[][] extendedMatrix) {
-        for (double[] row : extendedMatrix) {
-            if (VectorMath.isZeros(row, 0, row.length - 1) && row[row.length - 1] != 0.0) {
+    private boolean checkForNoSolution(Complex[][] extendedMatrix) {
+        for (Complex[] row : extendedMatrix) {
+            if (VectorMath.isZeros(row, 0, row.length - 1) && !row[row.length - 1].equals(new Complex(0.0, 0.0))) {
                 return true;
             }
         }
