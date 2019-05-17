@@ -2,7 +2,9 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import linalg.complex.Complex;
-import linalg.solver.*;
+import linalg.solver.GaussJordanSolver;
+import linalg.solver.LinearEquationSolver;
+import linalg.solver.SolverException;
 
 
 public class Main {

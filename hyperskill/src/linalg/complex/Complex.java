@@ -5,10 +5,10 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public class Complex {
-    public static final double EPSILON = 0.001;
+    private static final double EPSILON = 0.001;
 
-    final double real;
-    final double imag;
+    private final double real;
+    private final double imag;
 
     public Complex(double real, double imag) {
         this.real = real;
@@ -17,7 +17,6 @@ public class Complex {
 
     public Complex(String s) throws NumberFormatException {
         final String[] strs = split(s);
-//        System.out.println(strs[0] + " " + strs[1]);
         if (strs[1].contains("i")) {
             strs[1] = strs[1].replace("i", "1");
         }
@@ -80,6 +79,8 @@ public class Complex {
         imagFormat.setPositivePrefix("+");
         return String.format("%s%s", realFormat.format(real), imagFormat.format(imag));
     }
+
+    public double toDouble() { return this.real; }
 
     private String[] split(String s) throws NumberFormatException {
         if (s.equals("i")) {
