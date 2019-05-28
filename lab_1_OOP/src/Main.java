@@ -30,7 +30,7 @@ public class Main {
         fractionArray.insert(frac1).insert(frac2).insert(new Fraction(3));
 
         Polynom p1 = new Polynom(fractionList);
-        Polynom p2 = new Polynom(fractionArray);
+        Polynom p2 = new Polynom(fractionListFromFile);
         Polynom polynomSumma = p1.addPolynom(p2);
         System.out.println(String.format("%s + %s = %s", p1, p2, polynomSumma));
     }

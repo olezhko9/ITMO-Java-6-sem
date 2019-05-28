@@ -33,27 +33,28 @@ public class Polynom {
 
     /** Addition of two polynoms */
     public Polynom addPolynom(Polynom polynom){
-        FractionList polynomSumList = new FractionList();
-        int minDegree = degree;
-        int insertPos = 0;
 
-        if (polynom.getDegree() > degree){
-            insertPos = 1;
-            minDegree = degree;
-            for (int i = 0; i < polynom.getDegree() - degree; i++){
-                polynomSumList.insert(polynom.getCoefficient(i));
+        FractionList polynomSumList = new FractionList();
+        int minDegree;
+        if (polynom.getDegree() > this.degree) {
+            minDegree = this.degree;
+            for (int i = 0; i < polynom.getDegree() - minDegree; i++) {
+                polynomSumList.insert(polynom.getCoefficient(i), i);
             }
-        } else if (polynom.getDegree() < degree){
-            insertPos = 1;
+        } else {
             minDegree = polynom.getDegree();
-            for (int i = 0; i < degree - polynom.getDegree(); i++){
+            for (int i = 0; i < this.degree - minDegree; i++) {
                 polynomSumList.insert(this.getCoefficient(i), i);
             }
         }
 
-        for (int j = 0; j <= minDegree; j++){
-            polynomSumList.insert(this.getCoefficient(this.degree - j).add(polynom.getCoefficient(polynom.getDegree() - j)), insertPos);
+        for (int i = 0; i <= minDegree; i++) {
+            polynomSumList.insert(
+                    this.getCoefficient(this.degree - i).add(polynom.getCoefficient(polynom.getDegree() - i)),
+                    minDegree - 1
+            );
         }
+
         return new Polynom(polynomSumList);
     }
 
